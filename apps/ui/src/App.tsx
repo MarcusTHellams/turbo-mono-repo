@@ -1,19 +1,28 @@
-import { Container, Heading } from '@chakra-ui/react';
+import { chakra, Container } from '@chakra-ui/react';
 import { useQuery } from '@tanstack/react-query';
+import { useState } from 'react';
 
 import { api } from './api';
+import { Prisma, User } from './prisma';
 
 function App() {
-  const { data } = useQuery<string, Error>({
+  const [userInput] = useState<Prisma.UserWhereUniqueInput>({
+    username: 'mthellams',
+  });
+  const { data } = useQuery<User, Error>({
     queryKey: ['hello'],
     async queryFn() {
-      return api.get('').then(({ data }) => data);
+      return api.post('/users/unique', userInput).then(({ data }) => data);
     },
   });
   return (
     <>
       <Container mt="16" maxW="container.sm">
-        <Heading as="h1">{data}</Heading>
+        {data ? (
+          <chakra.pre fontSize="2xl">
+            {JSON.stringify(data, null, 2)}
+          </chakra.pre>
+        ) : null}
       </Container>
     </>
   );

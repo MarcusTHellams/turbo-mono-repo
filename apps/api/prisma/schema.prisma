@@ -1,0 +1,25 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+generator nest {
+  provider = "prisma-generator-nestjs-dto"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  userId    String @id @default(uuid())
+  firstName String
+  lastName  String
+  username  String @unique
+  email     String @unique
+  password  String
+}
+
