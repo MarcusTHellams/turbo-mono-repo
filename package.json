@@ -1,0 +1,19 @@
+{
+  "name": "turbo-mono-repo",
+  "version": "0.0.0",
+  "main": "index.js",
+  "private": true,
+  "author": "Marcus Hellams",
+  "devDependencies": {
+    "turbo": "^1.10.12"
+  },
+  "scripts": {
+    "build": "turbo run build",
+    "dev": "turbo run dev",
+    "start": "node apps/api/dist/main.js"
+  },
+  "workspaces": [
+    "packages/*",
+    "apps/*"
+  ]
+}
